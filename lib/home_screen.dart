@@ -15,14 +15,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<NotesModel> notes = [];
   bool isShow = true;
+  int editingItemSelected = -1;
 
   @override
   void initState() {
-    _updateDoc();
+    _getDoc();
     super.initState();
   }
 
-  Future<void> _updateDoc() async {
+  Future<void> _getDoc() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     User? uid = FirebaseAuth.instance.currentUser;
@@ -73,28 +74,33 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) => ListTile(
           trailing: SizedBox(
             width: 110.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.blue),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.blue,
+            child: Visibility(
+              visible: notes[index].isShow,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.blue),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
-                ),
-              ],
+                  IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ),
           title: Text(notes[index].title.toString()),
           subtitle: Visibility(
               visible: isShow, child: Text(notes[index].content.toString())),
           onTap: () {},
-          onLongPress: () {},
+          onLongPress: () {
+            longPressCallBack(index);
+          },
         ),
       ),
       floatingActionButton: Row(
@@ -125,5 +131,23 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  void longPressCallBack(int index) {
+    setState(() {
+      if (editingItemSelected > -1) {
+        if (editingItemSelected == index) {
+          notes[index].isShow = false;
+          editingItemSelected = -1;
+        } else {
+          notes[editingItemSelected].isShow = false;
+          notes[index].isShow = true;
+          editingItemSelected = index;
+        }
+      } else {
+        notes[index].isShow = true;
+        editingItemSelected = index;
+      }
+    });
   }
 }
