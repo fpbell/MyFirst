@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "938533601743",
+    "project_id": "myfirstiv-3dfda",
+    "storage_bucket": "myfirstiv-3dfda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938533601743:android:b58db4ec0d840f866e52ba",
+        "android_client_info": {
+          "package_name": "com.example.map_exam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938533601743-eu9hhrpsc4l6o41ijfckhia4fpat3jig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfJ1I_JORtR-LYrq8r75Pjz5SrPON3MGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938533601743-eu9hhrpsc4l6o41ijfckhia4fpat3jig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
