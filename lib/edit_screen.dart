@@ -6,15 +6,13 @@ import 'models/notes.dart';
 
 class EditScreen extends StatefulWidget {
   final String title;
-  final bool isView, isEdit, isNew;
+  final bool isView;
   Note? selectedNote;
   EditScreen({
     Key? key,
     required this.title,
     this.selectedNote,
     required this.isView,
-    required this.isEdit,
-    required this.isNew,
   }) : super(key: key);
 
   @override

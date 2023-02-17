@@ -74,8 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     title: 'Edit Note',
                                     selectedNote: notes[index],
                                     isView: false,
-                                    isNew: false,
-                                    isEdit: true,
                                   )));
                     },
                   ),
@@ -109,8 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           title: 'View Note',
                           selectedNote: notes[index],
                           isView: true,
-                          isEdit: false,
-                          isNew: false,
                         )));
           },
           onLongPress: () {
@@ -145,8 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context) => EditScreen(
                             title: 'Add new Note',
                             isView: false,
-                            isEdit: false,
-                            isNew: true,
                           )));
             },
           ),
