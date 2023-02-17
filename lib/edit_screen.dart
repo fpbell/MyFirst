@@ -56,7 +56,13 @@ class _EditScreenState extends State<EditScreen> {
                   Icons.check_circle,
                   size: 30,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Note newNote = Note(isShow: false);
+                  widget.selectedNote?.title = _titleController.text;
+                  widget.selectedNote?.content = _descriptionController.text;
+                  newNote = widget.selectedNote!;
+                  Navigator.pop(context, newNote);
+                }),
           IconButton(
               icon: const Icon(
                 Icons.cancel_sharp,

@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map_exam/models/notes.dart';
+import 'package:map_exam/repository/editNoteItem.dart';
 import 'package:map_exam/repository/getNoteList.dart';
+import 'package:map_exam/repository/newNoteItem.dart';
 
 import 'edit_screen.dart';
 import 'repository/deleteNoteItem.dart';
@@ -74,7 +76,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     title: 'Edit Note',
                                     selectedNote: notes[index],
                                     isView: false,
-                                  )));
+                                  ))).then((value) {
+                        notes[notes.indexWhere(
+                                (element) => element.id == value.id)] ==
+                            value;
+                        setState(() {
+                          notes;
+                        });
+                        EditNoteItem.callItemAPI(notes, value);
+                      });
                     },
                   ),
                   IconButton(
@@ -141,7 +151,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context) => EditScreen(
                             title: 'Add new Note',
                             isView: false,
-                          )));
+                            selectedNote: Note(isShow: false),
+                          ))).then((value) {
+                notes.add(Note(
+                    isShow: false,
+                    title: value.title,
+                    content: value.content,
+                    id: notes.length));
+                setState(() {
+                  notes;
+                });
+                AddNoteItem.callItemAPI(notes);
+              });
             },
           ),
         ],
