@@ -77,13 +77,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     selectedNote: notes[index],
                                     isView: false,
                                   ))).then((value) {
-                        notes[notes.indexWhere(
-                                (element) => element.id == value.id)] ==
-                            value;
-                        setState(() {
-                          notes;
-                        });
-                        EditNoteItem.callItemAPI(notes, value);
+                        if (value != false) {
+                          notes[notes.indexWhere(
+                                  (element) => element.id == value.id)] ==
+                              value;
+                          setState(() {
+                            notes;
+                          });
+                          EditNoteItem.callItemAPI(notes, value);
+                        }
                       });
                     },
                   ),
@@ -153,15 +155,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             isView: false,
                             selectedNote: Note(isShow: false),
                           ))).then((value) {
-                notes.add(Note(
-                    isShow: false,
-                    title: value.title,
-                    content: value.content,
-                    id: notes.length));
-                setState(() {
-                  notes;
-                });
-                AddNoteItem.callItemAPI(notes);
+                if (value != false) {
+                  notes.add(Note(
+                      isShow: false,
+                      title: value.title,
+                      content: value.content,
+                      id: notes.length));
+                  setState(() {
+                    notes;
+                  });
+                  AddNoteItem.callItemAPI(notes);
+                }
               });
             },
           ),

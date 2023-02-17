@@ -69,7 +69,7 @@ class _EditScreenState extends State<EditScreen> {
                 size: 30,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context, false);
               }),
         ],
       ),
@@ -97,7 +97,7 @@ class _EditScreenState extends State<EditScreen> {
                   controller: _descriptionController,
                   enabled: true,
                   initialValue: null,
-                  maxLines: 20,
+                  maxLines: null,
                   expands: true,
                   decoration: const InputDecoration(
                     hintText: 'Type the description',
