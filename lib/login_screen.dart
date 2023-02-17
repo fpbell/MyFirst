@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         .then((value) => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen())))
+                                builder: (context) => const HomeScreen())))
                         .onError((error, stackTrace) => print("fail to login"));
                   }),
             ],
