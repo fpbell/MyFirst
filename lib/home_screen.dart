@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map_exam/models/notes.dart';
+import 'package:map_exam/repository/getNoteList.dart';
 
 import 'edit_screen.dart';
+import 'repository/deleteNoteItem.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,31 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _getDoc();
+    getData();
     super.initState();
   }
 
-  Future<void> _getDoc() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    User? uid = FirebaseAuth.instance.currentUser;
-
-    // DocumentSnapshot documentSnapshot =
-    //   await firestore.collection('notes').doc(uid!.uid).get();
-
-    //notesList = documentSnapshot.data()['docArray'];
-
-    final docNote = firestore.collection('notes').doc(uid!.uid);
-    DocumentSnapshot doc = await docNote.get();
-    final data = doc.data() as Map<String, dynamic>;
-
-    final itemList = List<NotesModel>.from(
-        data['docArray'].map((e) => NotesModel.fromJson(e)));
-
+  Future<void> getData() async {
+    notes = await NoteList.callItemAPI();
     setState(() {
-      if (mounted) {
-        notes = itemList;
-      }
+      notes;
     });
   }
 
@@ -88,7 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.delete,
                       color: Colors.blue,
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      List<NotesModel> newNote =
+                          await DeleteNoteItem.callItemAPI(notes, index);
+
+                      setState(() {
+                        notes = newNote;
+                      });
+                    },
                   ),
                 ],
               ),
@@ -97,7 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text(notes[index].title.toString()),
           subtitle: Visibility(
               visible: isShow, child: Text(notes[index].content.toString())),
-          onTap: () {},
+          onTap: () {
+            longPressCallBack(index);
+          },
           onLongPress: () {
             longPressCallBack(index);
           },

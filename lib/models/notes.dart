@@ -8,4 +8,11 @@ class NotesModel {
       title: json["title"] ?? "",
       content: json["content"] ?? "",
       isShow: false);
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['content'] = content;
+    return data;
+  }
 }
