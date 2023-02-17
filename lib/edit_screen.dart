@@ -97,7 +97,7 @@ class _EditScreenState extends State<EditScreen> {
                   controller: _descriptionController,
                   enabled: true,
                   initialValue: null,
-                  maxLines: null,
+                  maxLines: 20,
                   expands: true,
                   decoration: const InputDecoration(
                     hintText: 'Type the description',
