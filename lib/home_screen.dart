@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<NotesModel> notes = [];
+  bool isShow = true;
 
   @override
   void initState() {
@@ -90,7 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           title: Text(notes[index].title.toString()),
-          subtitle: Text(notes[index].content.toString()),
+          subtitle: Visibility(
+              visible: isShow, child: Text(notes[index].content.toString())),
           onTap: () {},
           onLongPress: () {},
         ),
@@ -100,9 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           FloatingActionButton(
               heroTag: "btn1",
-              child: const Icon(Icons.menu),
+              child: Icon(isShow == true ? Icons.unfold_less : Icons.menu),
               tooltip: 'Show less. Hide notes content',
-              onPressed: () {}),
+              onPressed: () {
+                setState(() {
+                  bool isClick = !isShow;
+                  isShow = isClick;
+                });
+              }),
 
           /* Notes: for the "Show More" icon use: Icons.menu */
 
