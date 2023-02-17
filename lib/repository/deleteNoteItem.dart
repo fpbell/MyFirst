@@ -6,8 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../models/notes.dart';
 
 class DeleteNoteItem {
-  static Future<List<NotesModel>> callItemAPI(
-      List<NotesModel> notes, int index) async {
+  static Future<List<Note>> callItemAPI(List<Note> notes, int index) async {
     try {
       notes.removeAt(index);
 
@@ -28,7 +27,7 @@ class DeleteNoteItem {
 
       return notes;
     } catch (e) {
-      List<NotesModel> noteNull = [];
+      List<Note> noteNull = [];
       return noteNull;
     }
   }

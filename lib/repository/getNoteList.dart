@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../models/notes.dart';
 
 class NoteList {
-  static Future<List<NotesModel>> callItemAPI() async {
+  static Future<List<Note>> callItemAPI() async {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -19,12 +19,12 @@ class NoteList {
       DocumentSnapshot doc = await docNote.get();
       final data = doc.data() as Map<String, dynamic>;
 
-      final itemList = List<NotesModel>.from(
-          data['docArray'].map((e) => NotesModel.fromJson(e)));
+      final itemList =
+          List<Note>.from(data['docArray'].map((e) => Note.fromJson(e)));
 
       return itemList;
     } catch (e) {
-      List<NotesModel> itemNull = [];
+      List<Note> itemNull = [];
       return itemNull;
     }
   }

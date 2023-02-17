@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<NotesModel> notes = [];
+  List<Note> notes = [];
   bool isShow = true;
   int editingItemSelected = -1;
 
@@ -66,7 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.edit, color: Colors.blue),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditScreen(
+                                    title: 'Edit Note',
+                                    selectedNote: notes[index],
+                                    isView: false,
+                                    isNew: false,
+                                    isEdit: true,
+                                  )));
+                    },
                   ),
                   IconButton(
                     icon: const Icon(
@@ -74,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.blue,
                     ),
                     onPressed: () async {
-                      List<NotesModel> newNote =
+                      List<Note> newNote =
                           await DeleteNoteItem.callItemAPI(notes, index);
 
                       setState(() {
@@ -90,7 +101,17 @@ class _HomeScreenState extends State<HomeScreen> {
           subtitle: Visibility(
               visible: isShow, child: Text(notes[index].content.toString())),
           onTap: () {
-            longPressCallBack(index);
+            //longPressCallBack(index);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditScreen(
+                          title: 'View Note',
+                          selectedNote: notes[index],
+                          isView: true,
+                          isEdit: false,
+                          isNew: false,
+                        )));
           },
           onLongPress: () {
             longPressCallBack(index);
@@ -118,8 +139,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Icon(Icons.add),
             tooltip: 'Add a new note',
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const EditScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EditScreen(
+                            title: 'Add new Note',
+                            isView: false,
+                            isEdit: false,
+                            isNew: true,
+                          )));
             },
           ),
         ],
